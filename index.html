@@ -15,13 +15,17 @@
         <main>
             <div id="gameContainer">
                 <div id="score">Score: <span id="value">0</span></div>
+                <div id="highscore">High score: <span id="value">0</span></div>
                 <div id="startPage">
                     <h2>Stacks on Stacks on Stacks</h2>
-                    <div class="catContainer">
+                    <div class="catContainer homeScreen">
                         <img src="cat_standing.png" class="cat catStanding" />
                         <img src="cat_jumping.png" class=" cat catJumping" />
                     </div>
-                    <div class="brick"></div>
+                    <div class="brickContainer">
+                        <div class="brick original"></div>
+                    </div>
+                    <p id="instructions">Press any key to Jump</p>
                 </div>
                 <button id="startButton" class="btn">New game</button>
             </div>
