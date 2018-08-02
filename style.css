@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+
+button.btn {
+    border-radius: 6px;
+    border: none;
+    background: #5EB1BF;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+button.btn:hover,
+button.btn:focus {
+    background: #4598A6;
+    outline: none;
+}
+
+button.btn:active {
+    background: #2B7E8C;
+    outline: none;
+}
+
+#gameContainer {
+    height: 400px;
+    width: 300px;
+    border: 1px solid #000;
+    margin: 20px auto;
+    background: #CDEDF6;
+    position: relative;
+    padding: 10px;
+}
+
+#gameContainer #score {
+    text-align: right;
+}
+
+#gameContainer #startButton {
+    position: absolute;
+    bottom: 20px;
+    margin: auto;
+    display: block;
+    left: 25%;
+    right: 25%;
+    width: 50%;
+}
+
+.brick {
+    background: #EF7B45;
+    height: 20px;
+    width: 100px;
+    margin: auto;
+    border: 1px solid #000;
+}
+
+#startPage {
+    position: relative;
+}
+
+#startPage h2 {
+    margin: 20px auto;
+    text-align: center;
+    font-size: 16px;
+}
+
+#startPage .catContainer {
+    margin-top: 100px;
+}
+
+#startPage .cat {
+    height: 70px;
+    margin: auto;
+    display: block;
+    position: relative;
+}
+
+#startPage .catStanding {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: FadeInOut 1s ease-in-out infinite;
+}
+
+#startPage .catJumping {
+    animation: MoveUpDown 1s ease-in-out infinite;
+}
+
+@keyframes MoveUpDown {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+  20% {
+    bottom: 0;
+    opacity: 0;
+  }
+  21% {
+    opacity: 1;
+  }
+  50% {
+    bottom: 50px;
+    opacity: 1;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes FadeInOut {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  21% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
