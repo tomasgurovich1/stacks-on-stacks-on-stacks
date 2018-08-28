@@ -8,9 +8,22 @@ $(document).ready(function() {
 	var score = 0;
 	var highscore = 0;
 
-	// start the game
-	$('#startButton').on('click', function() {
-		$('#startButton').off('click');
+	// start (or restart) the game
+	function startGame() {
+		canJump = false;
+		gameIsInProgress = false;
+		catJumpedOverCurrentBlock = false;
+		catIsOnHisWayDown = false;
+		brickCreatorInterval = undefined;
+		score = 0;
+		$('#score #value').text(score);
+		$('.brickContainer').html('<div class="brick original"></div>');
+		$('.catContainer').removeClass('dead left right').css('top', 0);
+		$('.catStanding').css('opacity', 1);
+		$('.catJumping').css('opacity', 0);
+		$('#gameOverContent').fadeOut();
+
+		$('#startButton').off('click', startGame);
 		$('#startButton, #instructions').hide();
 		$('h2').css('visibility', 'hidden');
 		$('.catContainer').removeClass('homeScreen');
@@ -26,12 +39,15 @@ $(document).ready(function() {
 				}, 4000);
 			}
 		});
-	});
+	}
 
-	// jump
-	$(document).on('keyup', function() {
+	// click handler to start the game
+	$('#startButton').on('click', startGame);
+
+	// jump (or start game if first key press)
+	function handleKeyPress() {
 		if (!gameIsInProgress) {
-			$('#startButton').click();
+			startGame();
 		}
 		if (canJump) {
 			canJump = false;
@@ -47,7 +63,10 @@ $(document).ready(function() {
 				});
 			});
 		}
-	});
+	}
+
+	// keypress handler to jump
+	$(document).on('keyup', handleKeyPress);
 
 	// send a new brick from the left or right of the screen and move the stack down
 	function sendBrick() {
@@ -76,14 +95,16 @@ $(document).ready(function() {
 		
 		// cat was hit
 		if (!catJumpedOverCurrentBlock && $bricks.length > 1 && ((brickLeftPosition <= 90 && brickLeftPosition >= 75) || (brickLeftPosition <= 205 && brickLeftPosition >= 190)) && parseInt($catContainer.css('top')) > -20) {
-			console.warn('game over!');
-			console.log('brick left: ' + $('.brick').eq(0).css('left'));
-			console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));
-			console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
+			// console.warn('game over!');
+			// console.log('brick left: ' + $('.brick').eq(0).css('left'));
+			// console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));
+			// console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
+			
 			$bricks.eq(0).stop(true, false);
 			$catContainer.stop(true, false);
 			canJump = false;
 			gameIsInProgress = false;
+			$(document).off('keyup', handleKeyPress);
 			clearInterval(brickCreatorInterval);
 
 			var brickWasComingFromLeft = brickLeftPosition <= 90 && brickLeftPosition >= 75;
@@ -92,10 +113,11 @@ $(document).ready(function() {
 
 		// cat is on top of the brick
 		if ($catContainerOuter.css('top') === '60px' && !catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) <= -20 && parseInt($catContainer.css('top')) >= -30 && catIsOnHisWayDown) {
-			console.warn('on top of brick!');
-			console.log('brick left: ' + $('.brick').eq(0).css('left'));
-			console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));
-			console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
+			// console.warn('on top of brick!');
+			// console.log('brick left: ' + $('.brick').eq(0).css('left'));
+			// console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));
+			// console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
+			
 			$catContainer.stop(false, false);
 			$catContainer.css('top', 0);
 			$catContainerOuter.css('top', '-=20');
@@ -106,14 +128,28 @@ $(document).ready(function() {
 		}
 	}
 
+	// end the game
+	function endGame() {
+		setTimeout(function() {
+			$('#gameOverContent').fadeIn();
+			if (score > highscore) {
+				highscore = score;
+				$('#highscore #value').text(score);
+			}
+			$(document).on('keyup', handleKeyPress);
+		}, 1500);
+	}
+
+	// click handler to restart the game
+	$('#restartButton').on('click', startGame);
+
 	// main loop
 	function mainLoop() {			
-			if (gameIsInProgress) {
-				hitCheck();
-				window.requestAnimationFrame(mainLoop);
-			} else {
-				// submit your score
-
-			}
-		};
+		if (gameIsInProgress) {
+			hitCheck();
+			window.requestAnimationFrame(mainLoop);
+		} else {
+			endGame();
+		}
+	}
 });
