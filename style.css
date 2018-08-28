@@ -85,6 +85,15 @@ button.btn:active {
     transform: translateX(-50%);
 }
 
+.brick.original,
+.brick.ten {
+    background: #AFA2FF;
+}
+
+.brick.five {
+    background: #E3D7FF;
+}
+
 #startPage {
     position: relative;
     margin-top: 40px;

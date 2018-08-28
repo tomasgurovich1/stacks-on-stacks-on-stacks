@@ -30,13 +30,13 @@ $(document).ready(function() {
         $('.catContainerOuter, .brickContainer').animate({
             top: 40,
         }, function() {
-            canJump = true;
-            gameIsInProgress = true;
-            mainLoop();
-            if (typeof brickCreatorInterval === 'undefined') {
-                brickCreatorInterval = setInterval(function() {
-                    sendBrick();
-                }, 4000);
+            if (!gameIsInProgress) {
+                canJump = true;
+                gameIsInProgress = true;
+                mainLoop();
+                if (typeof brickCreatorInterval === 'undefined') {
+                    brickCreatorInterval = setInterval(sendBrick, 4000);
+                }
             }
         });
     }
@@ -76,7 +76,8 @@ $(document).ready(function() {
         // create a new brick
         var startingSide = Math.random() > 0.5 ? '-' : '';
         var speed = Math.floor(Math.random() * 500) + 3000;
-        $('.brickContainer').prepend('<div class="brick" style="left: ' + startingSide + '700px;"></div>');
+        var additionalColorClass = (score + 1) % 10 === 0 ? 'ten' : (score + 1) % 5 === 0 ? 'five' : '';
+        $('.brickContainer').prepend('<div class="brick ' + additionalColorClass + '" style="left: ' + startingSide + '700px;"></div>');
         $('.brick').eq(0).animate({
             left: '50%',
         }, speed, function() {
@@ -95,11 +96,6 @@ $(document).ready(function() {
         
         // cat was hit
         if (!catJumpedOverCurrentBlock && $bricks.length > 1 && ((brickLeftPosition <= 90 && brickLeftPosition >= 75) || (brickLeftPosition <= 205 && brickLeftPosition >= 190)) && parseInt($catContainer.css('top')) > -20) {
-            // console.warn('game over!');
-            // console.log('brick left: ' + $('.brick').eq(0).css('left'));
-            // console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));
-            // console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
-            
             $bricks.eq(0).stop(true, false);
             $catContainer.stop(true, false);
             canJump = false;
@@ -113,16 +109,12 @@ $(document).ready(function() {
 
         // cat is on top of the brick
         if ($catContainerOuter.css('top') === '60px' && !catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) <= -20 && parseInt($catContainer.css('top')) >= -30 && catIsOnHisWayDown) {
-            // console.warn('on top of brick!');
-            // console.log('brick left: ' + $('.brick').eq(0).css('left'));
-            // console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));
-            // console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
-            
-            $catContainer.stop(false, false);
+            $catContainer.stop(true, false);
             $catContainer.css('top', 0);
             $catContainerOuter.css('top', '-=20');
             canJump = true;
             catJumpedOverCurrentBlock = true;
+            catIsOnHisWayDown = false;
             $('.catStanding').css('opacity', 1);
             $('.catJumping').css('opacity', 0);
         }
