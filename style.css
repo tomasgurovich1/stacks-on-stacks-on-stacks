@@ -201,14 +201,14 @@ button.btn:active {
         bottom: 0;
         opacity: 0;
     }
-    20% {
+    30% {
         bottom: 0;
         opacity: 0;
     }
-    21% {
+    31% {
         opacity: 1;
     }
-    50% {
+    60% {
         bottom: 80px;
         opacity: 1;
     }
@@ -225,13 +225,13 @@ button.btn:active {
     0% {
         opacity: 1;
     }
-    20% {
+    30% {
         opacity: 1;
     }
-    21% {
+    31% {
         opacity: 0;
     }
-    50% {
+    60% {
         opacity: 0;
     }
     99% {

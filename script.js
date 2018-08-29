@@ -53,7 +53,7 @@ $(document).ready(function() {
             canJump = false;
             $('.catStanding').css('opacity', 0);
             $('.catJumping').css('opacity', 1);
-            $('.catContainer').animate({ top: '-=80px' }, 300, function() {
+            $('.catContainer').animate({ top: '-=80px' }, 250, function() {
                 catIsOnHisWayDown = true;
                 $('.catContainer').animate({ top: '+=80px' }, 300, function() {
                     canJump = true;
@@ -66,7 +66,7 @@ $(document).ready(function() {
     }
 
     // keypress handler to jump
-    $(document).on('keyup', handleKeyPress);
+    $(document).on('keydown', handleKeyPress);
 
     // send a new brick from the left or right of the screen and move the stack down
     function sendBrick() {
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
         // create a new brick
         var startingSide = Math.random() > 0.5 ? '-' : '';
-        var speed = Math.floor(Math.random() * 500) + 3000;
+        var speed = Math.max(2000, Math.floor(Math.random() * 500) + 3000 - (score * 25));
         var additionalColorClass = (score + 1) % 10 === 0 ? 'ten' : (score + 1) % 5 === 0 ? 'five' : '';
         $('.brickContainer').prepend('<div class="brick ' + additionalColorClass + '" style="left: ' + startingSide + '700px;"></div>');
         $('.brick').eq(0).animate({
@@ -100,7 +100,7 @@ $(document).ready(function() {
             $catContainer.stop(true, false);
             canJump = false;
             gameIsInProgress = false;
-            $(document).off('keyup', handleKeyPress);
+            $(document).off('keydown', handleKeyPress);
             clearInterval(brickCreatorInterval);
 
             var brickWasComingFromLeft = brickLeftPosition <= 90 && brickLeftPosition >= 75;
@@ -128,7 +128,7 @@ $(document).ready(function() {
                 highscore = score;
                 $('#highscore #value').text(score);
             }
-            $(document).on('keyup', handleKeyPress);
+            $(document).on('keydown', handleKeyPress);
         }, 1500);
     }
 
