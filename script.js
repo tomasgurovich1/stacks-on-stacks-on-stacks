@@ -81,7 +81,7 @@ $(document).ready(function() {
 
     // increment the score and send a new brick
     function incrementScoreAndSendNewBrick() {
-    	score++;
+        score++;
         $('#score #value').text(score);
         catJumpedOverCurrentBlock = false;
         sendBrick();
