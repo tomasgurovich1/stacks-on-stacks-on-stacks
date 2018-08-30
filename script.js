@@ -15,7 +15,7 @@ $(document).ready(function() {
         catIsOnHisWayDown = false;
         score = 0;
         $('#score #value').text(score);
-        $('.brickContainer').html('<div class="brick original"></div>');
+        $('.brickContainer').html('<div class="brick original landed"></div>');
         $('.catContainer').removeClass('dead left right').css('top', 0);
         $('.catStanding').css('opacity', 1);
         $('.catJumping').css('opacity', 0);
@@ -120,6 +120,7 @@ $(document).ready(function() {
             $catContainer.stop(true, false);
             $catContainer.css('top', 0);
             $catContainerOuter.css('top', '-=20');
+            $('.brick').eq(0).addClass('landed');
             canJump = true;
             catJumpedOverCurrentBlock = true;
             catIsOnHisWayDown = false;

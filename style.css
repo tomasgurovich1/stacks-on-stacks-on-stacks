@@ -94,6 +94,10 @@ button.btn:active {
     background: #E3D7FF;
 }
 
+.brick.landed {
+    box-shadow: #000 0 0 0 1px;
+}
+
 #startPage {
     position: relative;
     margin-top: 40px;
