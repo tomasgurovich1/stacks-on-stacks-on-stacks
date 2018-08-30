@@ -4,7 +4,6 @@ $(document).ready(function() {
     var gameIsInProgress = false;
     var catJumpedOverCurrentBlock = false;
     var catIsOnHisWayDown = false;
-    var brickCreatorInterval;
     var score = 0;
     var highscore = 0;
 
@@ -14,7 +13,6 @@ $(document).ready(function() {
         gameIsInProgress = false;
         catJumpedOverCurrentBlock = false;
         catIsOnHisWayDown = false;
-        brickCreatorInterval = undefined;
         score = 0;
         $('#score #value').text(score);
         $('.brickContainer').html('<div class="brick original"></div>');
@@ -34,9 +32,7 @@ $(document).ready(function() {
                 canJump = true;
                 gameIsInProgress = true;
                 mainLoop();
-                if (typeof brickCreatorInterval === 'undefined') {
-                    brickCreatorInterval = setInterval(sendBrick, 4000);
-                }
+                setTimeout(sendBrick, 2000);
             }
         });
     }
@@ -75,7 +71,8 @@ $(document).ready(function() {
 
         // create a new brick
         var startingSide = Math.random() > 0.5 ? '-' : '';
-        var speed = Math.max(2000, Math.floor(Math.random() * 500) + 3000 - (score * 25));
+        var speed = Math.max(1000, Math.floor(Math.random() * 2000) + 2000 - (score * 20));
+        console.log('SPEED: ' + speed);
         var additionalColorClass = (score + 1) % 10 === 0 ? 'ten' : (score + 1) % 5 === 0 ? 'five' : '';
         $('.brickContainer').prepend('<div class="brick ' + additionalColorClass + '" style="left: ' + startingSide + '700px;"></div>');
         $('.brick').eq(0).animate({
@@ -84,6 +81,7 @@ $(document).ready(function() {
             score++;
             $('#score #value').text(score);
             catJumpedOverCurrentBlock = false;
+            sendBrick();
         });
     }
 
@@ -95,20 +93,30 @@ $(document).ready(function() {
         var $catContainerOuter = $('.catContainerOuter').eq(0);
         
         // cat was hit
-        if (!catJumpedOverCurrentBlock && $bricks.length > 1 && ((brickLeftPosition <= 90 && brickLeftPosition >= 75) || (brickLeftPosition <= 205 && brickLeftPosition >= 190)) && parseInt($catContainer.css('top')) > -20) {
+        // if (!catJumpedOverCurrentBlock && $bricks.length > 1 && ((brickLeftPosition <= 90 && brickLeftPosition >= 75) || (brickLeftPosition <= 205 && brickLeftPosition >= 190)) && parseInt($catContainer.css('top')) > -20) {
+        if (!catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) > -20) {
+            console.warn('game over!');	
+            console.log('brick left: ' + $('.brick').eq(0).css('left'));	
+            console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));	
+            console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
+
             $bricks.eq(0).stop(true, false);
             $catContainer.stop(true, false);
             canJump = false;
             gameIsInProgress = false;
             $(document).off('keydown', handleKeyPress);
-            clearInterval(brickCreatorInterval);
 
             var brickWasComingFromLeft = brickLeftPosition <= 90 && brickLeftPosition >= 75;
             brickWasComingFromLeft ? $catContainer.addClass('dead right') : $catContainer.addClass('dead left')
         }
 
         // cat is on top of the brick
-        if ($catContainerOuter.css('top') === '60px' && !catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) <= -20 && parseInt($catContainer.css('top')) >= -30 && catIsOnHisWayDown) {
+        if (parseInt($catContainerOuter.css('top')) === 60 && !catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) <= -20 && parseInt($catContainer.css('top')) >= -30 && catIsOnHisWayDown) {
+            console.warn('on top of brick!');
+            console.log('brick left: ' + $('.brick').eq(0).css('left'));	
+            console.log('catContainer top: ' + $('.catContainer').eq(0).css('top'));	
+            console.log('catContainerOuter top: ' + $('.catContainerOuter').eq(0).css('top'));
+
             $catContainer.stop(true, false);
             $catContainer.css('top', 0);
             $catContainerOuter.css('top', '-=20');
