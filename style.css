@@ -22,7 +22,7 @@ button.btn {
     border-radius: 6px;
     border: none;
     background: #5EB1BF;
-    color: #fff;
+    color: #FFF;
     padding: 10px 20px;
     font-size: 14px;
 }
@@ -83,6 +83,11 @@ button.btn:active {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 10;
+}
+
+.brick.original {
+    z-index: 30;
 }
 
 .brick.original,
@@ -98,24 +103,28 @@ button.btn:active {
     box-shadow: #000 0 0 0 1px;
 }
 
-#startPage {
+.brick.hit {
+    box-shadow: #FF0000 0 0 1px 1px;
+}
+
+#mainContent {
     position: relative;
     margin-top: 40px;
 }
 
-#startPage h2 {
+h2 {
     margin: 20px auto;
     text-align: center;
     font-size: 16px;
 }
 
-#startPage #instructions {
+#instructions {
     text-align: center;
     margin: 40px 0 20px 0;
     font-size: 12px;
 }
 
-#startPage #gameOverContent {
+#gameOverContent {
     position: absolute;
     width: 100%;
     top: 10px;
@@ -123,7 +132,7 @@ button.btn:active {
     display: none;
 }
 
-#startPage #gameOverContent h3 {
+#gameOverContent h3 {
     margin: 0;
     font-size: 36px;
 }
@@ -140,34 +149,37 @@ button.btn:active {
     font-size: 12px;
 }
 
-#startPage .catContainerOuter {
+.catContainerOuter {
     margin-top: 100px;
     position: relative;
+    z-index: 20;
 }
 
-#startPage .catContainer {
+.catContainer {
     position: relative;
+    z-index: 20;
 }
 
-#startPage .cat {
+.cat {
     height: 70px;
     margin: auto;
     display: block;
     position: relative;
+    z-index: 20;
 }
 
-#startPage .catStanding {
+.cat.catStanding {
     opacity: 1;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
 
-#startPage .catJumping {
+.cat.catJumping {
     opacity: 0;
 }
 
-#startPage .catFalling {
+.cat.catFalling {
     position: absolute;
     opacity: 0;
     width: 70px;
@@ -177,25 +189,25 @@ button.btn:active {
     bottom: 20px;
 }
 
-#startPage .catContainer.dead .catJumping,
-#startPage .catContainer.dead .catStanding {
+.catContainer.dead .cat.catJumping,
+.catContainer.dead .cat.catStanding {
     opacity: 0 !important;
 }
 
-#startPage .homeScreen .catStanding {
+.homeScreen .cat.catStanding {
     animation: FadeInOutDemo 1s ease-in-out infinite;
 }
 
-#startPage .homeScreen .catJumping {
+.homeScreen .cat.catJumping {
     animation: MoveUpDownDemo 1s ease-in-out infinite;
 }
 
-#startPage .catContainer.dead.left .catFalling {
+.catContainer.dead.left .catFalling {
     opacity: 1;
     animation: FallDownLeft 1s linear forwards;
 }
 
-#startPage .catContainer.dead.right .catFalling {
+.catContainer.dead.right .catFalling {
     opacity: 1;
     animation: FallDownRight 1s linear forwards;
 }
