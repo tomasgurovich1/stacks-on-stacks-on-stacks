@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // globals
+    // global game variables
     var canJump = false;
     var gameIsInProgress = false;
     var catJumpedOverCurrentBlock = false;
@@ -74,9 +74,7 @@ $(document).ready(function() {
         var speed = Math.max(1000, Math.floor(Math.random() * 2000) + 2000 - (score * 20));
         var additionalColorClass = (score + 1) % 10 === 0 ? 'ten' : (score + 1) % 5 === 0 ? 'five' : '';
         $('.brickContainer').prepend('<div class="brick ' + additionalColorClass + '" style="left: ' + startingSide + '700px;"></div>');
-        $('.brick').eq(0).animate({
-            left: '50%',
-        }, speed);
+        $('.brick').eq(0).animate({ left: '50%' }, speed);
     }
 
     // increment the score and send a new brick
@@ -95,7 +93,6 @@ $(document).ready(function() {
         var $catContainerOuter = $('.catContainerOuter').eq(0);
         
         // cat was hit
-        // if (!catJumpedOverCurrentBlock && $bricks.length > 1 && ((brickLeftPosition <= 90 && brickLeftPosition >= 75) || (brickLeftPosition <= 205 && brickLeftPosition >= 190)) && parseInt($catContainer.css('top')) > -20) {
         if (!catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) > -20) {
             $bricks.eq(0).stop(true, false);
             $catContainer.stop(true, false);
@@ -106,10 +103,9 @@ $(document).ready(function() {
 
             var brickWasComingFromLeft = brickLeftPosition <= 90 && brickLeftPosition >= 75;
             brickWasComingFromLeft ? $catContainer.addClass('dead right') : $catContainer.addClass('dead left')
-        }
 
         // cat is on top of the brick
-        if (parseInt($catContainerOuter.css('top')) === 60 && !catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) <= -20 && parseInt($catContainer.css('top')) >= -30 && catIsOnHisWayDown) {
+        } else if (parseInt($catContainerOuter.css('top')) === 60 && !catJumpedOverCurrentBlock && $bricks.length > 1 && brickLeftPosition >= 75 && brickLeftPosition <= 205 && parseInt($catContainer.css('top')) <= -20 && parseInt($catContainer.css('top')) >= -30 && catIsOnHisWayDown) {
             $bricks.eq(0).stop(true, false);
             $catContainer.stop(true, false);
             $catContainer.css('top', 0);
