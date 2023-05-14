@@ -37,8 +37,8 @@ $(document).ready(function() {
         });
     }
 
-    // click handler to start the game
-    $('#startButton').on('click', startGame);
+    // click handler to start the game - cambiado para que funcione en mobile
+    $('#startButton').on('click touchstart', startGame);
 
     // jump (or start game if first key press)
     function handleKeyPress() {
