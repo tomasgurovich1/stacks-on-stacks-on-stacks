@@ -133,7 +133,7 @@ h2 {
     font-size: 36px;
 }
 
-#gameContainer #gameOverContent #restartButton #jumpButton {
+#gameContainer #gameOverContent #restartButton {
     position: relative;
     margin: 20px auto;
     display: block;
