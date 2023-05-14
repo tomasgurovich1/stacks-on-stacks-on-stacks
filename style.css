@@ -68,7 +68,9 @@ button.btn:active {
 
 .jumpButton {
     display: block;
-    margin: 20px auto;
+    margin: 0 auto 20px auto;
+    width: 50%;
+    cursor: pointer;
 }
 
 .brickContainer {
