@@ -61,6 +61,10 @@ $(document).ready(function() {
         }
     }
 
+    // add an event listener to the jump button to handle the jump action
+    $('#jumpButton').on('click', handleKeyPress);
+    
+  
     // keypress handler to jump
     $(document).on('keydown', handleKeyPress);
 
