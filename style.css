@@ -60,14 +60,15 @@ button.btn:active {
 }
 
 #gameContainer #startButton {
-    position: absolute;
-    bottom: 20px;
-    margin: auto;
     display: block;
-    left: 25%;
-    right: 25%;
+    margin: 0 auto 20px auto;
     width: 50%;
     cursor: pointer;
+}
+
+.jumpButton {
+    display: block;
+    margin: 20px auto;
 }
 
 .brickContainer {
@@ -146,147 +147,3 @@ h2 {
 }
 
 #gameContainer #gameOverContent #instructionsRestart {
-    font-size: 12px;
-}
-
-.catContainerOuter {
-    margin-top: 100px;
-    position: relative;
-    z-index: 20;
-}
-
-.catContainer {
-    position: relative;
-    z-index: 20;
-}
-
-.cat {
-    height: 70px;
-    margin: auto;
-    display: block;
-    position: relative;
-    z-index: 20;
-}
-
-.cat.catStanding {
-    opacity: 1;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.cat.catJumping {
-    opacity: 0;
-}
-
-.cat.catFalling {
-    position: absolute;
-    opacity: 0;
-    width: 70px;
-    height: auto;
-    left: 50%;
-    transform: translateX(-50%) rotateZ(90deg);
-    bottom: 20px;
-}
-
-.catContainer.dead .cat.catJumping,
-.catContainer.dead .cat.catStanding {
-    opacity: 0 !important;
-}
-
-.homeScreen .cat.catStanding {
-    animation: FadeInOutDemo 1s ease-in-out infinite;
-}
-
-.homeScreen .cat.catJumping {
-    animation: MoveUpDownDemo 1s ease-in-out infinite;
-}
-
-.catContainer.dead.left .catFalling {
-    opacity: 1;
-    animation: FallDownLeft 1s linear forwards;
-}
-
-.catContainer.dead.right .catFalling {
-    opacity: 1;
-    animation: FallDownRight 1s linear forwards;
-}
-
-@keyframes MoveUpDownDemo {
-    0% {
-        bottom: 0;
-        opacity: 0;
-    }
-    30% {
-        bottom: 0;
-        opacity: 0;
-    }
-    31% {
-        opacity: 1;
-    }
-    60% {
-        bottom: 80px;
-        opacity: 1;
-    }
-    99% {
-        opacity: 1;
-    }
-    100% {
-        bottom: 0;
-        opacity: 0;
-    }
-}
-
-@keyframes FadeInOutDemo {
-    0% {
-        opacity: 1;
-    }
-    30% {
-        opacity: 1;
-    }
-    31% {
-        opacity: 0;
-    }
-    60% {
-        opacity: 0;
-    }
-    99% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes FallDownLeft {
-    0% {
-        bottom: 20px;
-        opacity: 1;
-    }
-    80% {
-        bottom: 25px;
-        transform: translateX(-170%) rotateZ(70deg);
-    }
-    100% {
-        bottom: -90px;
-        opacity: 1;
-        transform: translateX(-200%) rotateZ(0deg);
-    }
-}
-
-@keyframes FallDownRight {
-    0% {
-        bottom: 20px;
-        opacity: 1;
-        transform: translateX(-50%) rotateZ(90deg) scaleY(-1);
-    }
-    80% {
-        bottom: 25px;
-        transform: translateX(70%) rotateZ(110deg) scaleY(-1);
-    }
-    100% {
-        bottom: -90px;
-        opacity: 1;
-        transform: translateX(100%) rotateZ(180deg) scaleY(-1);
-    }
-}
