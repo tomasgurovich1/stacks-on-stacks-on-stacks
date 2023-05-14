@@ -66,13 +66,6 @@ button.btn:active {
     cursor: pointer;
 }
 
-.jumpButton {
-    display: block;
-    margin: 0 auto 20px auto;
-    width: 50%;
-    cursor: pointer;
-}
-
 .brickContainer {
     position: relative;
 }
@@ -140,7 +133,7 @@ h2 {
     font-size: 36px;
 }
 
-#gameContainer #gameOverContent #restartButton {
+#gameContainer #gameOverContent #restartButton #jumpButton {
     position: relative;
     margin: 20px auto;
     display: block;
