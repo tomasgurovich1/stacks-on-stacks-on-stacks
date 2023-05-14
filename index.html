@@ -1,68 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>My Game</title>
-	<style>
-		#game-area {
-			width: 400px;
-			height: 400px;
-			border: 1px solid black;
-			position: relative;
-		}
-
-		#player {
-			width: 50px;
-			height: 50px;
-			background-color: blue;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-		}
-
-		#jump-button {
-			display: block;
-			margin: 20px auto;
-			padding: 10px;
-			background-color: green;
-			color: white;
-			border: none;
-			border-radius: 5px;
-			font-size: 16px;
-			cursor: pointer;
-		}
-	</style>
-</head>
-<body>
-	<div id="game-area">
-		<div id="player"></div>
-	</div>
-	<button id="jump-button">Jump</button>
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		var player = $('#player');
-		var gameArea = $('#game-area');
-		var isJumping = false;
-
-		function jump() {
-			if (!isJumping) {
-				player.animate({bottom: '+=100px'}, 500, function() {
-					player.animate({bottom: '0px'}, 500);
-					isJumping = false;
-				});
-				isJumping = true;
-			}
-		}
-
-		function handleKeyPress(e) {
-			if (e.keyCode === 32) {
-				jump();
-			}
-		}
-
-		$(document).on('keydown', handleKeyPress);
-
-		$('#jump-button').on('click', jump);
-	</script>
-</body>
+    <head>
+        <title>Stacks on Stacks on Stacks</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body>
+        <header id="header">
+            <h1>Stacks on Stacks on Stacks</h1>
+        </header>
+        <main>
+            <div id="gameContainer">
+                <div id="score">Score: <span id="value">0</span></div>
+                <div id="highscore">High score: <span id="value">0</span></div>
+                <div id="mainContent">
+                    <h2>Stacks on Stacks on Stacks</h2>
+                    <div id="gameOverContent">
+                        <h3>Game Over</h3>
+                        <button id="restartButton" class="btn" type="button">Play again</button>
+                        <p id="instructionsRestart">(or press any key)</p>
+                    </div>
+                    <div class="catContainerOuter">
+                        <div class="catContainer homeScreen">
+                            <img src="cat_standing.png" class="cat catStanding" />
+                            <img src="cat_jumping.png" class="cat catJumping" />
+                            <img src="cat_falling.png" class="cat catFalling" />
+                        </div>
+                    </div>
+                    <div class="brickContainer">
+                        <div class="brick original landed"></div>
+                    </div>
+                    <p id="instructions">Press any key to Jump</p>
+		    <button id="jumpButton" class="btn" type="button">Jump</button>
+                </div>
+                <button id="startButton" class="btn" type="button">New game</button>
+            </div>
+        </main>
+    </body>
 </html>
